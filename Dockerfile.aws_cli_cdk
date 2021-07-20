@@ -1,0 +1,39 @@
+FROM python:3.9
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Install pipenv to manage python environment
+RUN pip install pipenv
+
+# Updating apt and all package
+RUN apt-get -y update && \
+    apt-get -y upgrade
+
+
+#--------------------
+# Install AWS CDK
+#--------------------
+# based on answer on Stack Overflow https://stackoverflow.com/questions/36399848/install-node-in-dockerfile
+ENV NODE_VERSION=16.5.0
+RUN apt install -y curl
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+ENV NVM_DIR=/root/.nvm
+RUN . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION}
+RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
+RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
+ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
+RUN npm install -g aws-cdk
+
+#--------------------
+# Install AWS CLI
+#--------------------
+# Installing dependencies for AWS CLI based on https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html
+RUN apt-get install -yqq unzip && \
+    apt-get install -y glibc-doc && \
+    apt-get install -y groff && \
+    apt-get install -y less
+# Installing AWS CLI
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+    unzip awscliv2.zip && \
+    ./aws/install

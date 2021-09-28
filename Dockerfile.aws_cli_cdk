@@ -25,6 +25,15 @@ ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 RUN npm install -g aws-cdk
 
 #--------------------
+# Install AWS CDK python modules
+#--------------------
+RUN pip install 'aws_cdk.core>=1.124.0' \
+                'aws_cdk.aws_ec2>=1.124.0' \
+                'aws_cdk.aws_rds>=1.124.0' \
+                'aws_cdk.aws_iam>=1.124.0' \
+                'aws_cdk.aws_elasticbeanstalk>=1.124.0'
+
+#--------------------
 # Install AWS CLI
 #--------------------
 # Installing dependencies for AWS CLI based on https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-linux.html

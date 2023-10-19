@@ -26,3 +26,4 @@ flake8-variables-names==0.0.5
 # testing
 pytest==7.4.2
 coverage==7.3.2
+Faker=19.11.0

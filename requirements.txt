@@ -26,4 +26,17 @@ flake8-variables-names==0.0.5
 # testing
 pytest==7.4.2
 coverage==7.3.2
-Faker=19.11.0
+Faker==19.11.0
+
+# database management
+psycopg2==2.9.9
+psycopg2-binary==2.9
+
+# Django packages
+django==4.2.5
+django-split-settings==1.2.0
+django-debug-toolbar==4.2.0
+django-cleanup==8.0.0
+
+# Environmental variables
+python-dotenv==1.0.0
